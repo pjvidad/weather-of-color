@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Weather of Color — a gallery made only of CSS</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=DM+Sans:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#f5eee3; --ink:#17123f; --soft:#4a4470;
+  --saffron:#ffae0c; --orchid:#b565f5; --teal:#18b8a6; --rose:#ff5d8f; --indigo:#2a1f8f;
+  --blend:multiply; --grain:.22;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#0f0b2b; --ink:#f6ecdc; --soft:#b5aed6; --blend:screen; --grain:.35}
+}
+:root[data-theme="dark"]{--bg:#0f0b2b; --ink:#f6ecdc; --soft:#b5aed6; --blend:screen; --grain:.35}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.05rem/1.65 "DM Sans",system-ui,sans-serif;overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:var(--grain);mix-blend-mode:overlay;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.serif{font-family:Fraunces,Georgia,serif}
+
+/* HERO */
+.hero{position:relative;min-height:100svh;display:grid;align-content:end;padding:6vw 6vw 7vh;overflow:hidden;isolation:isolate}
+.blob{position:absolute;border-radius:50%;filter:blur(40px);mix-blend-mode:var(--blend);z-index:-1;animation:drift 18s ease-in-out infinite alternate}
+.b1{width:60vmax;height:60vmax;background:radial-gradient(circle at 35% 35%,var(--saffron),var(--rose) 60%,transparent 72%);top:-18vmax;right:-12vmax}
+.b2{width:50vmax;height:50vmax;background:radial-gradient(circle,var(--orchid),var(--indigo) 65%,transparent 72%);left:-14vmax;top:8vh;animation-duration:23s;animation-delay:-6s}
+.b3{width:38vmax;height:38vmax;background:radial-gradient(circle,var(--teal),transparent 68%);right:12vw;bottom:-14vmax;animation-duration:15s}
+@keyframes drift{to{transform:translate(7vmax,-5vmax) rotate(40deg) scale(1.15)}}
+.hero h1{margin:0;font-family:Fraunces,Georgia,serif;font-weight:300;font-style:italic;font-variation-settings:"SOFT" 100,"WONK" 1;
+  font-size:clamp(3.6rem,15.5vw,14rem);line-height:.82;letter-spacing:-.045em}
+.hero h1 b{display:block;font-weight:900;font-style:normal;font-variation-settings:"SOFT" 0,"WONK" 0;margin-left:12vw;letter-spacing:-.06em}
+.hero p{max-width:34ch;margin:3vh 0 0 auto;color:var(--ink);font-size:1.15rem}
+.sun{position:absolute;top:9vh;left:8vw;width:clamp(70px,11vw,150px);aspect-ratio:1;border-radius:50%;z-index:-1;
+  background:conic-gradient(from 0deg,var(--saffron),var(--rose),var(--orchid),var(--teal),var(--saffron));animation:spin 30s linear infinite;
+  -webkit-mask:radial-gradient(circle,transparent 38%,#000 39% 70%,transparent 71%);mask:radial-gradient(circle,transparent 38%,#000 39% 70%,transparent 71%)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* MARQUEE */
+.tape{overflow:hidden;white-space:nowrap;background:var(--ink);color:var(--bg);transform:rotate(-1.6deg) scale(1.04);margin:-2vh 0 8vh;padding:.7rem 0}
+.tape span{display:inline-block;font:italic 300 1.9rem/1 Fraunces,serif;animation:roll 28s linear infinite;padding-right:2rem}
+@keyframes roll{to{transform:translateX(-100%)}}
+
+/* GALLERY */
+.intro{padding:0 6vw;max-width:62rem;margin:0 0 10vh auto}
+.intro h2{font:300 clamp(2rem,5.4vw,4.4rem)/1.05 Fraunces,serif;margin:0 0 1.4rem;letter-spacing:-.03em;font-variation-settings:"SOFT" 100}
+.intro p{color:var(--soft);max-width:48ch}
+.gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:6vw 3vw;padding:0 6vw 12vh;align-items:start}
+figure{margin:0}
+.art{position:relative;overflow:hidden;aspect-ratio:4/5;box-shadow:0 30px 60px -30px rgba(20,10,80,.55)}
+figcaption{margin-top:1rem;font:italic 400 1.35rem/1.2 Fraunces,serif}
+figcaption small{display:block;font:400 .9rem/1.5 "DM Sans",sans-serif;color:var(--soft);margin-top:.25rem}
+.f1{grid-column:1/8}.f2{grid-column:9/13;margin-top:14vh}.f3{grid-column:2/6}.f4{grid-column:7/13;margin-top:-6vh}
+.f1 .art{aspect-ratio:7/6;border-radius:50% 50% 0 0/62% 62% 0 0}
+.f2 .art{border-radius:999px}
+.f3 .art{border-radius:0 40% 0 40%}
+.f4 .art{aspect-ratio:1;transform:rotate(2.5deg)}
+
+/* 1 Eclipse at Noon */
+.a1{background:radial-gradient(circle at 50% 56%,#000 0 17%,transparent 17.4%),
+  radial-gradient(circle at 50% 56%,var(--saffron) 17.4% 21%,var(--rose) 21% 33%,var(--orchid) 33% 47%,var(--indigo) 47% 70%,#120a45 70%)}
+.a1::before{content:"";position:absolute;inset:-30%;background:repeating-conic-gradient(from 0deg at 50% 63%,rgba(255,255,255,.28) 0 2deg,transparent 2deg 9deg);
+  -webkit-mask:radial-gradient(circle at 50% 63%,transparent 22%,#000 40%,transparent 75%);mask:radial-gradient(circle at 50% 63%,transparent 22%,#000 40%,transparent 75%);animation:spin 80s linear infinite reverse}
+/* 2 Tide Table */
+.a2{background:repeating-radial-gradient(circle at 50% 118%,var(--teal) 0 18px,#0b6b78 18px 36px,var(--bg) 36px 40px)}
+.a2::after{content:"";position:absolute;width:52%;aspect-ratio:1;border-radius:50%;left:24%;top:12%;background:radial-gradient(circle at 40% 35%,#fff6c9,var(--saffron) 55%,var(--rose));animation:bob 7s ease-in-out infinite alternate}
+@keyframes bob{to{transform:translateY(22%)}}
+/* 3 Moth Hours */
+.a3{background:var(--indigo)}
+.a3::before{content:"";position:absolute;inset:8%;border-radius:50%;
+  background:repeating-conic-gradient(from 0deg,var(--orchid) 0 10deg,var(--rose) 10deg 20deg,var(--saffron) 20deg 30deg,transparent 30deg 45deg);
+  -webkit-mask:radial-gradient(circle,#000 0 14%,transparent 15% 24%,#000 25% 52%,transparent 53% 60%,#000 61% 100%);mask:radial-gradient(circle,#000 0 14%,transparent 15% 24%,#000 25% 52%,transparent 53% 60%,#000 61% 100%);animation:spin 50s linear infinite}
+.a3::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,transparent 40%,rgba(10,5,50,.8))}
+/* 4 Folded Light */
+.a4{background:linear-gradient(135deg,var(--saffron) 0 33%,transparent 33%),linear-gradient(225deg,var(--rose) 0 50%,transparent 50%),linear-gradient(315deg,var(--orchid) 0 66%,transparent 66%),var(--teal)}
+.a4::before,.a4::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.35) 40% 41%,transparent 41% 58%,rgba(20,10,80,.25) 58% 59%,transparent 59%);animation:slide 9s ease-in-out infinite alternate}
+.a4::after{animation-direction:alternate-reverse;transform:scaleX(-1)}
+@keyframes slide{to{transform:translate(12%,-12%)}}
+
+/* MANIFESTO */
+.say{padding:10vh 6vw 14vh;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--orchid) 22%,transparent) 50%,transparent)}
+.say p{margin:0;font:300 clamp(1.9rem,5.6vw,5rem)/1.08 Fraunces,serif;letter-spacing:-.035em;max-width:20ch;font-variation-settings:"SOFT" 100}
+.say p:nth-child(2){margin:6vh 0 0 auto;text-align:right;font-style:italic;color:var(--soft)}
+.say p:nth-child(3){margin-top:6vh;font-weight:900;font-variation-settings:"SOFT" 0}
+
+footer{padding:6vh 6vw 8vh;display:flex;flex-wrap:wrap;gap:1.5rem 4rem;justify-content:space-between;align-items:end;border-top:2px solid var(--ink)}
+footer h3{margin:0;font:italic 300 2.2rem/1 Fraunces,serif}
+footer p{margin:0;color:var(--soft);max-width:32ch}
+a{color:var(--ink);text-decoration-thickness:2px;text-underline-offset:.25em}
+a:focus-visible{outline:3px solid var(--orchid);outline-offset:4px}
+
+@media (max-width:760px){
+  .gallery{grid-template-columns:1fr}
+  .f1,.f2,.f3,.f4{grid-column:1;margin-top:0}
+  .f2{max-width:70%}.f3{max-width:80%;margin-left:auto}
+  .hero h1 b{margin-left:6vw}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="sun" aria-hidden="true"></div>
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <h1>Weather <b>of Color</b></h1>
+  <p>Four paintings made with no images at all — only gradients, masks and a little patience.</p>
+</header>
+
+<div class="tape" aria-hidden="true"><span>saffron afternoons &nbsp;✺&nbsp; orchid rain &nbsp;✺&nbsp; teal tides &nbsp;✺&nbsp; rose lightning &nbsp;✺&nbsp; indigo midnight &nbsp;✺&nbsp; saffron afternoons &nbsp;✺&nbsp; orchid rain &nbsp;✺&nbsp; teal tides &nbsp;✺&nbsp; rose lightning &nbsp;✺&nbsp; indigo midnight &nbsp;✺&nbsp;</span></div>
+
+<section class="intro">
+  <h2>Every color has a climate. Here are four of them.</h2>
+  <p>Each work below is drawn entirely in CSS. Nothing is photographed, nothing is exported. The slow movement you see is the paint still drying.</p>
+</section>
+
+<main class="gallery">
+  <figure class="f1"><div class="art a1" role="img" aria-label="Concentric rings of saffron, rose and violet around a black sun"></div>
+    <figcaption>Eclipse at Noon<small>Conic rays and nested rings, 2026</small></figcaption></figure>
+  <figure class="f2"><div class="art a2" role="img" aria-label="A glowing sun sinking into teal waves"></div>
+    <figcaption>Tide Table<small>Radial waves, one sinking sun</small></figcaption></figure>
+  <figure class="f3"><div class="art a3" role="img" aria-label="A slowly turning mandala of orchid, rose and gold wedges"></div>
+    <figcaption>Moth Hours<small>Masked wedges turning once every fifty seconds</small></figcaption></figure>
+  <figure class="f4"><div class="art a4" role="img" aria-label="Folded planes of gold, rose and violet with sliding light"></div>
+    <figcaption>Folded Light<small>Four gradients and two creases that drift</small></figcaption></figure>
+</main>
+
+<section class="say">
+  <p>Look slowly.</p>
+  <p>The sky never repeats itself, and neither does this page.</p>
+  <p>Color is a weather you can stand inside.</p>
+</section>
+
+<footer>
+  <h3>Weather of Color</h3>
+  <p>A small exhibition in pure HTML and CSS. Open it on a rainy day, or make one.</p>
+</footer>
+
+</body>
+</html>
